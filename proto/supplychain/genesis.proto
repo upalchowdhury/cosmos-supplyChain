@@ -1,0 +1,14 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+import "gogoproto/gogo.proto";
+import "supplychain/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+// GenesisState defines the supplychain module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

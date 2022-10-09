@@ -1,0 +1,12 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
