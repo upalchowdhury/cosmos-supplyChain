@@ -1,0 +1,11 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+message Parties {
+  string Id = 1; 
+  string owner = 2; 
+  string vendor = 3; 
+  uint64 commission = 4; 
+}
