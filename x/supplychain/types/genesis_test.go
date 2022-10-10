@@ -19,12 +19,41 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				ConCounter: &types.ConCounter{
+					IdValue: 24,
+				},
+				ActorscontractList: []types.Actorscontract{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
+				ContractCounter: &types.ContractCounter{
+					DealId:  "91",
+					IdValue: 65,
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated actorscontract",
+			genState: &types.GenesisState{
+				ActorscontractList: []types.Actorscontract{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {

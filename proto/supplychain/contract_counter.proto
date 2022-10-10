@@ -1,0 +1,10 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+message ContractCounter {
+  string dealId = 1; 
+  uint64 idValue = 2; 
+  
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+message Actorscontract {
+  string index = 1; 
+  string contractId = 2; 
+  string owner = 3; 
+  string vendor = 4; 
+  uint64 commission = 5; 
+  
+}
+

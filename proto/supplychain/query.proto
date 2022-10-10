@@ -5,6 +5,9 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "supplychain/params.proto";
+import "supplychain/con_counter.proto";
+import "supplychain/actorscontract.proto";
+import "supplychain/contract_counter.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
@@ -15,7 +18,25 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/upalchowdhury/supplychain/supplychain/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a ConCounter by index.
+	rpc ConCounter(QueryGetConCounterRequest) returns (QueryGetConCounterResponse) {
+		option (google.api.http).get = "/upalchowdhury/supplychain/supplychain/con_counter";
+	}
+// Queries a Actorscontract by index.
+	rpc Actorscontract(QueryGetActorscontractRequest) returns (QueryGetActorscontractResponse) {
+		option (google.api.http).get = "/upalchowdhury/supplychain/supplychain/actorscontract/{index}";
+	}
+
+	// Queries a list of Actorscontract items.
+	rpc ActorscontractAll(QueryAllActorscontractRequest) returns (QueryAllActorscontractResponse) {
+		option (google.api.http).get = "/upalchowdhury/supplychain/supplychain/actorscontract";
+	}
+
+// Queries a ContractCounter by index.
+	rpc ContractCounter(QueryGetContractCounterRequest) returns (QueryGetContractCounterResponse) {
+		option (google.api.http).get = "/upalchowdhury/supplychain/supplychain/contract_counter";
+	}
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -27,4 +48,32 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
+message QueryGetConCounterRequest {}
+
+message QueryGetConCounterResponse {
+	ConCounter ConCounter = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetActorscontractRequest {
+	  string index = 1;
+
+}
+
+message QueryGetActorscontractResponse {
+	Actorscontract actorscontract = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllActorscontractRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllActorscontractResponse {
+	repeated Actorscontract actorscontract = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetContractCounterRequest {}
+
+message QueryGetContractCounterResponse {
+	ContractCounter ContractCounter = 1 [(gogoproto.nullable) = false];
+}
 // this line is used by starport scaffolding # 3

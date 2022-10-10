@@ -1,6 +1,13 @@
 /* eslint-disable */
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../supplychain/params";
+import { ConCounter } from "../supplychain/con_counter";
+import { Actorscontract } from "../supplychain/actorscontract";
+import {
+  PageRequest,
+  PageResponse,
+} from "../cosmos/base/query/v1beta1/pagination";
+import { ContractCounter } from "../supplychain/contract_counter";
 
 export const protobufPackage = "upalchowdhury.supplychain.supplychain";
 
@@ -11,6 +18,35 @@ export interface QueryParamsRequest {}
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
   params: Params | undefined;
+}
+
+export interface QueryGetConCounterRequest {}
+
+export interface QueryGetConCounterResponse {
+  ConCounter: ConCounter | undefined;
+}
+
+export interface QueryGetActorscontractRequest {
+  index: string;
+}
+
+export interface QueryGetActorscontractResponse {
+  actorscontract: Actorscontract | undefined;
+}
+
+export interface QueryAllActorscontractRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllActorscontractResponse {
+  actorscontract: Actorscontract[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetContractCounterRequest {}
+
+export interface QueryGetContractCounterResponse {
+  ContractCounter: ContractCounter | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -110,10 +146,614 @@ export const QueryParamsResponse = {
   },
 };
 
+const baseQueryGetConCounterRequest: object = {};
+
+export const QueryGetConCounterRequest = {
+  encode(
+    _: QueryGetConCounterRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetConCounterRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetConCounterRequest,
+    } as QueryGetConCounterRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGetConCounterRequest {
+    const message = {
+      ...baseQueryGetConCounterRequest,
+    } as QueryGetConCounterRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGetConCounterRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryGetConCounterRequest>
+  ): QueryGetConCounterRequest {
+    const message = {
+      ...baseQueryGetConCounterRequest,
+    } as QueryGetConCounterRequest;
+    return message;
+  },
+};
+
+const baseQueryGetConCounterResponse: object = {};
+
+export const QueryGetConCounterResponse = {
+  encode(
+    message: QueryGetConCounterResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.ConCounter !== undefined) {
+      ConCounter.encode(message.ConCounter, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetConCounterResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetConCounterResponse,
+    } as QueryGetConCounterResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ConCounter = ConCounter.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetConCounterResponse {
+    const message = {
+      ...baseQueryGetConCounterResponse,
+    } as QueryGetConCounterResponse;
+    if (object.ConCounter !== undefined && object.ConCounter !== null) {
+      message.ConCounter = ConCounter.fromJSON(object.ConCounter);
+    } else {
+      message.ConCounter = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetConCounterResponse): unknown {
+    const obj: any = {};
+    message.ConCounter !== undefined &&
+      (obj.ConCounter = message.ConCounter
+        ? ConCounter.toJSON(message.ConCounter)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetConCounterResponse>
+  ): QueryGetConCounterResponse {
+    const message = {
+      ...baseQueryGetConCounterResponse,
+    } as QueryGetConCounterResponse;
+    if (object.ConCounter !== undefined && object.ConCounter !== null) {
+      message.ConCounter = ConCounter.fromPartial(object.ConCounter);
+    } else {
+      message.ConCounter = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetActorscontractRequest: object = { index: "" };
+
+export const QueryGetActorscontractRequest = {
+  encode(
+    message: QueryGetActorscontractRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetActorscontractRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetActorscontractRequest,
+    } as QueryGetActorscontractRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetActorscontractRequest {
+    const message = {
+      ...baseQueryGetActorscontractRequest,
+    } as QueryGetActorscontractRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetActorscontractRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetActorscontractRequest>
+  ): QueryGetActorscontractRequest {
+    const message = {
+      ...baseQueryGetActorscontractRequest,
+    } as QueryGetActorscontractRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetActorscontractResponse: object = {};
+
+export const QueryGetActorscontractResponse = {
+  encode(
+    message: QueryGetActorscontractResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.actorscontract !== undefined) {
+      Actorscontract.encode(
+        message.actorscontract,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetActorscontractResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetActorscontractResponse,
+    } as QueryGetActorscontractResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.actorscontract = Actorscontract.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetActorscontractResponse {
+    const message = {
+      ...baseQueryGetActorscontractResponse,
+    } as QueryGetActorscontractResponse;
+    if (object.actorscontract !== undefined && object.actorscontract !== null) {
+      message.actorscontract = Actorscontract.fromJSON(object.actorscontract);
+    } else {
+      message.actorscontract = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetActorscontractResponse): unknown {
+    const obj: any = {};
+    message.actorscontract !== undefined &&
+      (obj.actorscontract = message.actorscontract
+        ? Actorscontract.toJSON(message.actorscontract)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetActorscontractResponse>
+  ): QueryGetActorscontractResponse {
+    const message = {
+      ...baseQueryGetActorscontractResponse,
+    } as QueryGetActorscontractResponse;
+    if (object.actorscontract !== undefined && object.actorscontract !== null) {
+      message.actorscontract = Actorscontract.fromPartial(
+        object.actorscontract
+      );
+    } else {
+      message.actorscontract = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllActorscontractRequest: object = {};
+
+export const QueryAllActorscontractRequest = {
+  encode(
+    message: QueryAllActorscontractRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllActorscontractRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllActorscontractRequest,
+    } as QueryAllActorscontractRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllActorscontractRequest {
+    const message = {
+      ...baseQueryAllActorscontractRequest,
+    } as QueryAllActorscontractRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllActorscontractRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllActorscontractRequest>
+  ): QueryAllActorscontractRequest {
+    const message = {
+      ...baseQueryAllActorscontractRequest,
+    } as QueryAllActorscontractRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllActorscontractResponse: object = {};
+
+export const QueryAllActorscontractResponse = {
+  encode(
+    message: QueryAllActorscontractResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.actorscontract) {
+      Actorscontract.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllActorscontractResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllActorscontractResponse,
+    } as QueryAllActorscontractResponse;
+    message.actorscontract = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.actorscontract.push(
+            Actorscontract.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllActorscontractResponse {
+    const message = {
+      ...baseQueryAllActorscontractResponse,
+    } as QueryAllActorscontractResponse;
+    message.actorscontract = [];
+    if (object.actorscontract !== undefined && object.actorscontract !== null) {
+      for (const e of object.actorscontract) {
+        message.actorscontract.push(Actorscontract.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllActorscontractResponse): unknown {
+    const obj: any = {};
+    if (message.actorscontract) {
+      obj.actorscontract = message.actorscontract.map((e) =>
+        e ? Actorscontract.toJSON(e) : undefined
+      );
+    } else {
+      obj.actorscontract = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllActorscontractResponse>
+  ): QueryAllActorscontractResponse {
+    const message = {
+      ...baseQueryAllActorscontractResponse,
+    } as QueryAllActorscontractResponse;
+    message.actorscontract = [];
+    if (object.actorscontract !== undefined && object.actorscontract !== null) {
+      for (const e of object.actorscontract) {
+        message.actorscontract.push(Actorscontract.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetContractCounterRequest: object = {};
+
+export const QueryGetContractCounterRequest = {
+  encode(
+    _: QueryGetContractCounterRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetContractCounterRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetContractCounterRequest,
+    } as QueryGetContractCounterRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGetContractCounterRequest {
+    const message = {
+      ...baseQueryGetContractCounterRequest,
+    } as QueryGetContractCounterRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGetContractCounterRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryGetContractCounterRequest>
+  ): QueryGetContractCounterRequest {
+    const message = {
+      ...baseQueryGetContractCounterRequest,
+    } as QueryGetContractCounterRequest;
+    return message;
+  },
+};
+
+const baseQueryGetContractCounterResponse: object = {};
+
+export const QueryGetContractCounterResponse = {
+  encode(
+    message: QueryGetContractCounterResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.ContractCounter !== undefined) {
+      ContractCounter.encode(
+        message.ContractCounter,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetContractCounterResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetContractCounterResponse,
+    } as QueryGetContractCounterResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ContractCounter = ContractCounter.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetContractCounterResponse {
+    const message = {
+      ...baseQueryGetContractCounterResponse,
+    } as QueryGetContractCounterResponse;
+    if (
+      object.ContractCounter !== undefined &&
+      object.ContractCounter !== null
+    ) {
+      message.ContractCounter = ContractCounter.fromJSON(
+        object.ContractCounter
+      );
+    } else {
+      message.ContractCounter = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetContractCounterResponse): unknown {
+    const obj: any = {};
+    message.ContractCounter !== undefined &&
+      (obj.ContractCounter = message.ContractCounter
+        ? ContractCounter.toJSON(message.ContractCounter)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetContractCounterResponse>
+  ): QueryGetContractCounterResponse {
+    const message = {
+      ...baseQueryGetContractCounterResponse,
+    } as QueryGetContractCounterResponse;
+    if (
+      object.ContractCounter !== undefined &&
+      object.ContractCounter !== null
+    ) {
+      message.ContractCounter = ContractCounter.fromPartial(
+        object.ContractCounter
+      );
+    } else {
+      message.ContractCounter = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** Queries a ConCounter by index. */
+  ConCounter(
+    request: QueryGetConCounterRequest
+  ): Promise<QueryGetConCounterResponse>;
+  /** Queries a Actorscontract by index. */
+  Actorscontract(
+    request: QueryGetActorscontractRequest
+  ): Promise<QueryGetActorscontractResponse>;
+  /** Queries a list of Actorscontract items. */
+  ActorscontractAll(
+    request: QueryAllActorscontractRequest
+  ): Promise<QueryAllActorscontractResponse>;
+  /** Queries a ContractCounter by index. */
+  ContractCounter(
+    request: QueryGetContractCounterRequest
+  ): Promise<QueryGetContractCounterResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -129,6 +769,62 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
+  }
+
+  ConCounter(
+    request: QueryGetConCounterRequest
+  ): Promise<QueryGetConCounterResponse> {
+    const data = QueryGetConCounterRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "upalchowdhury.supplychain.supplychain.Query",
+      "ConCounter",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetConCounterResponse.decode(new Reader(data))
+    );
+  }
+
+  Actorscontract(
+    request: QueryGetActorscontractRequest
+  ): Promise<QueryGetActorscontractResponse> {
+    const data = QueryGetActorscontractRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "upalchowdhury.supplychain.supplychain.Query",
+      "Actorscontract",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetActorscontractResponse.decode(new Reader(data))
+    );
+  }
+
+  ActorscontractAll(
+    request: QueryAllActorscontractRequest
+  ): Promise<QueryAllActorscontractResponse> {
+    const data = QueryAllActorscontractRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "upalchowdhury.supplychain.supplychain.Query",
+      "ActorscontractAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllActorscontractResponse.decode(new Reader(data))
+    );
+  }
+
+  ContractCounter(
+    request: QueryGetContractCounterRequest
+  ): Promise<QueryGetContractCounterResponse> {
+    const data = QueryGetContractCounterRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "upalchowdhury.supplychain.supplychain.Query",
+      "ContractCounter",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetContractCounterResponse.decode(new Reader(data))
+    );
   }
 }
 

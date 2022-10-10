@@ -14,6 +14,21 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
+		ConCounter: &types.ConCounter{
+			IdValue: 51,
+		},
+		ActorscontractList: []types.Actorscontract{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		ContractCounter: &types.ContractCounter{
+			DealId:  "49",
+			IdValue: 42,
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -25,5 +40,8 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
+	require.Equal(t, genesisState.ConCounter, got.ConCounter)
+	require.ElementsMatch(t, genesisState.ActorscontractList, got.ActorscontractList)
+	require.Equal(t, genesisState.ContractCounter, got.ContractCounter)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
