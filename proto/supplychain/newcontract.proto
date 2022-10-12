@@ -1,0 +1,22 @@
+syntax = "proto3";
+package upalchowdhury.supplychain.supplychain;
+
+option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
+
+message Newcontract {
+  string index = 1; 
+  string dealId = 2; 
+  string contractId = 3; 
+  string consumer = 4; 
+  string desc = 5; 
+  uint64 ownereta = 6; 
+  uint64 vendoreta = 7; 
+  string status = 8; 
+  string fees = 9; 
+  string expiry = 10; 
+  uint64 shippingdelay = 11; 
+  string starttime = 12; 
+  uint64 deliverydelay = 13; 
+  
+}
+

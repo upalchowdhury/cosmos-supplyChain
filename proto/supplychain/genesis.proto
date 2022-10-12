@@ -6,6 +6,7 @@ import "supplychain/params.proto";
 import "supplychain/con_counter.proto";
 import "supplychain/actorscontract.proto";
 import "supplychain/contract_counter.proto";
+import "supplychain/newcontract.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
@@ -16,5 +17,6 @@ message GenesisState {
   ConCounter conCounter = 2;
   repeated Actorscontract actorscontractList = 3 [(gogoproto.nullable) = false];
   ContractCounter contractCounter = 4;
+  repeated Newcontract newcontractList = 5 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

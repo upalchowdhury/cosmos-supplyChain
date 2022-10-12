@@ -3,6 +3,7 @@ import { Params } from "../supplychain/params";
 import { ConCounter } from "../supplychain/con_counter";
 import { Actorscontract } from "../supplychain/actorscontract";
 import { ContractCounter } from "../supplychain/contract_counter";
+import { Newcontract } from "../supplychain/newcontract";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "upalchowdhury.supplychain.supplychain";
@@ -12,8 +13,9 @@ export interface GenesisState {
   params: Params | undefined;
   conCounter: ConCounter | undefined;
   actorscontractList: Actorscontract[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   contractCounter: ContractCounter | undefined;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  newcontractList: Newcontract[];
 }
 
 const baseGenesisState: object = {};
@@ -35,6 +37,9 @@ export const GenesisState = {
         writer.uint32(34).fork()
       ).ldelim();
     }
+    for (const v of message.newcontractList) {
+      Newcontract.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -43,6 +48,7 @@ export const GenesisState = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
     message.actorscontractList = [];
+    message.newcontractList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -63,6 +69,11 @@ export const GenesisState = {
             reader.uint32()
           );
           break;
+        case 5:
+          message.newcontractList.push(
+            Newcontract.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -74,6 +85,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.actorscontractList = [];
+    message.newcontractList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -102,6 +114,14 @@ export const GenesisState = {
     } else {
       message.contractCounter = undefined;
     }
+    if (
+      object.newcontractList !== undefined &&
+      object.newcontractList !== null
+    ) {
+      for (const e of object.newcontractList) {
+        message.newcontractList.push(Newcontract.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -124,12 +144,20 @@ export const GenesisState = {
       (obj.contractCounter = message.contractCounter
         ? ContractCounter.toJSON(message.contractCounter)
         : undefined);
+    if (message.newcontractList) {
+      obj.newcontractList = message.newcontractList.map((e) =>
+        e ? Newcontract.toJSON(e) : undefined
+      );
+    } else {
+      obj.newcontractList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.actorscontractList = [];
+    message.newcontractList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -157,6 +185,14 @@ export const GenesisState = {
       );
     } else {
       message.contractCounter = undefined;
+    }
+    if (
+      object.newcontractList !== undefined &&
+      object.newcontractList !== null
+    ) {
+      for (const e of object.newcontractList) {
+        message.newcontractList.push(Newcontract.fromPartial(e));
+      }
     }
     return message;
   },

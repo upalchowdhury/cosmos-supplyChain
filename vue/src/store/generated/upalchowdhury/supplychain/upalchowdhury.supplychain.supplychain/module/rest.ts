@@ -42,6 +42,34 @@ export interface SupplychainContractCounter {
   idValue?: string;
 }
 
+export interface SupplychainMsgCreateTranResponse {
+  idValue?: string;
+}
+
+export interface SupplychainNewcontract {
+  index?: string;
+  dealId?: string;
+  contractId?: string;
+  consumer?: string;
+  desc?: string;
+
+  /** @format uint64 */
+  ownereta?: string;
+
+  /** @format uint64 */
+  vendoreta?: string;
+  status?: string;
+  fees?: string;
+  expiry?: string;
+
+  /** @format uint64 */
+  shippingdelay?: string;
+  starttime?: string;
+
+  /** @format uint64 */
+  deliverydelay?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */
@@ -49,6 +77,21 @@ export type SupplychainParams = object;
 
 export interface SupplychainQueryAllActorscontractResponse {
   actorscontract?: SupplychainActorscontract[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface SupplychainQueryAllNewcontractResponse {
+  newcontract?: SupplychainNewcontract[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -72,6 +115,10 @@ export interface SupplychainQueryGetConCounterResponse {
 
 export interface SupplychainQueryGetContractCounterResponse {
   ContractCounter?: SupplychainContractCounter;
+}
+
+export interface SupplychainQueryGetNewcontractResponse {
+  newcontract?: SupplychainNewcontract;
 }
 
 /**
@@ -410,6 +457,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryContractCounter = (params: RequestParams = {}) =>
     this.request<SupplychainQueryGetContractCounterResponse, RpcStatus>({
       path: `/upalchowdhury/supplychain/supplychain/contract_counter`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryNewcontractAll
+   * @summary Queries a list of Newcontract items.
+   * @request GET:/upalchowdhury/supplychain/supplychain/newcontract
+   */
+  queryNewcontractAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<SupplychainQueryAllNewcontractResponse, RpcStatus>({
+      path: `/upalchowdhury/supplychain/supplychain/newcontract`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryNewcontract
+   * @summary Queries a Newcontract by index.
+   * @request GET:/upalchowdhury/supplychain/supplychain/newcontract/{index}
+   */
+  queryNewcontract = (index: string, params: RequestParams = {}) =>
+    this.request<SupplychainQueryGetNewcontractResponse, RpcStatus>({
+      path: `/upalchowdhury/supplychain/supplychain/newcontract/${index}`,
       method: "GET",
       format: "json",
       ...params,
