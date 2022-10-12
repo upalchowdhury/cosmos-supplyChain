@@ -8,17 +8,33 @@ option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
 // Msg defines the Msg service.
 service Msg {
       rpc CreateTran(MsgCreateTran) returns (MsgCreateTranResponse);
+  rpc CreateContract(MsgCreateContract) returns (MsgCreateContractResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
 message MsgCreateTran {
   string creator = 1;
   string vendor = 2;
-  string commission = 3;
+  uint64 commission = 3;
 }
 
 message MsgCreateTranResponse {
   string idValue = 1;
+}
+
+message MsgCreateContract {
+  string creator = 1;
+  string dealId = 2;
+  string consumer = 3;
+  string desc = 4;
+  string ownereta = 5;
+  string expiry = 6;
+  uint64 fees = 7;
+}
+
+message MsgCreateContractResponse {
+  string idValue = 1;
+  string contractStatus = 2;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

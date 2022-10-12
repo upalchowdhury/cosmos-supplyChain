@@ -5,10 +5,12 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgCreateTran } from "./types/supplychain/tx";
+import { MsgCreateContract } from "./types/supplychain/tx";
 
 
 const types = [
   ["/upalchowdhury.supplychain.supplychain.MsgCreateTran", MsgCreateTran],
+  ["/upalchowdhury.supplychain.supplychain.MsgCreateContract", MsgCreateContract],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -42,6 +44,7 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgCreateTran: (data: MsgCreateTran): EncodeObject => ({ typeUrl: "/upalchowdhury.supplychain.supplychain.MsgCreateTran", value: MsgCreateTran.fromPartial( data ) }),
+    msgCreateContract: (data: MsgCreateContract): EncodeObject => ({ typeUrl: "/upalchowdhury.supplychain.supplychain.MsgCreateContract", value: MsgCreateContract.fromPartial( data ) }),
     
   };
 };

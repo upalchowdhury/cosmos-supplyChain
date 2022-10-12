@@ -52425,6 +52425,11 @@ definitions:
       idValue:
         type: string
         format: uint64
+  upalchowdhury.supplychain.supplychain.MsgCreateContractResponse:
+    type: object
+    properties:
+      idValue:
+        type: string
   upalchowdhury.supplychain.supplychain.MsgCreateTranResponse:
     type: object
     properties:

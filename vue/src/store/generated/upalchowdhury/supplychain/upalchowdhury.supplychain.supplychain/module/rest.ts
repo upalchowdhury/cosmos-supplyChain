@@ -42,6 +42,10 @@ export interface SupplychainContractCounter {
   idValue?: string;
 }
 
+export interface SupplychainMsgCreateContractResponse {
+  idValue?: string;
+}
+
 export interface SupplychainMsgCreateTranResponse {
   idValue?: string;
 }

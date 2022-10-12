@@ -13,14 +13,18 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCreateTran() *cobra.Command {
+func CmdCreateContract() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-tran [vendor] [commission]",
-		Short: "Broadcast message createTran",
-		Args:  cobra.ExactArgs(2),
+		Use:   "create-contract [deal-id] [consumer] [desc] [ownereta] [expiry] [fees]",
+		Short: "Broadcast message createContract",
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argVendor := args[0]
-			argCommission, err := cast.ToUint64E(args[1])
+			argDealId := args[0]
+			argConsumer := args[1]
+			argDesc := args[2]
+			argOwnereta := args[3]
+			argExpiry := args[4]
+			argFees, err := cast.ToUint64E(args[5])
 			if err != nil {
 				return err
 			}
@@ -30,10 +34,14 @@ func CmdCreateTran() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateTran(
+			msg := types.NewMsgCreateContract(
 				clientCtx.GetFromAddress().String(),
-				argVendor,
-				argCommission,
+				argDealId,
+				argConsumer,
+				argDesc,
+				argOwnereta,
+				argExpiry,
+				argFees,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
