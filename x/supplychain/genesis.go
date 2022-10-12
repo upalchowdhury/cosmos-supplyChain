@@ -45,7 +45,10 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	if found {
 		genesis.ContractCounter = &contractCounter
 	}
-	genesis.NewcontractList = k.GetAllNewcontract(ctx)
+	for _, counter := range contractCounter {
+		contractsForDealId := k.GetAllNewcontract(ctx, counter.DealId)
+		genesis.NewcontractList = append(genesis.NewcontractList, contractsForDealId...)
+	}
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

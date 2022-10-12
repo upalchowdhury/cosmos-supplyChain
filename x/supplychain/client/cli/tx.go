@@ -32,7 +32,12 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateTran())
 	cmd.AddCommand(CmdCreateContract())
-	// this line is used by starport scaffolding # 1
+	cmd.AddCommand(CmdCommitContract())
+cmd.AddCommand(CmdApproveContract())
+cmd.AddCommand(CmdShipOrder())
+cmd.AddCommand(CmdOrderDelivered())
+cmd.AddCommand(CmdCancelOrder())
+// this line is used by starport scaffolding # 1
 
 	return cmd
 }

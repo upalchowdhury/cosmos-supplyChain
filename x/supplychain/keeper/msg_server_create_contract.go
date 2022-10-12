@@ -38,7 +38,7 @@ func (k msgServer) CreateContract(goCtx context.Context, msg *types.MsgCreateCon
 	   return nil, types.ErrInvalidTime
 	  }
 	  expiry := ctx.BlockTime().Add(time.Duration(expiryInMins) * time.Minute)
-	  // create a new contract under the given dealId
+	  // create a new contract 
 	  newContract := types.NewContract{
 	  DealId:     msg.DealId,
 	  ContractId: contractId,

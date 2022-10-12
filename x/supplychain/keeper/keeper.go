@@ -17,23 +17,26 @@ type (
 		storeKey   sdk.StoreKey
 		memKey     sdk.StoreKey
 		paramstore paramtypes.Subspace
+		auth       types.AccountKeeper
+		bank       types.BankKeeper
 	}
 )
 
 func NewKeeper(
+	auth types.AccountKeeper,
+	bank types.BankKeeper,
 	cdc codec.BinaryCodec,
 	storeKey,
 	memKey sdk.StoreKey,
 	ps paramtypes.Subspace,
-
 ) *Keeper {
-	// set KeyTable if it has not already been set
+
 	if !ps.HasKeyTable() {
 		ps = ps.WithKeyTable(types.ParamKeyTable())
 	}
-
 	return &Keeper{
-
+		auth:       auth,
+		bank:       bank,
 		cdc:        cdc,
 		storeKey:   storeKey,
 		memKey:     memKey,

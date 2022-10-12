@@ -9,6 +9,11 @@ option go_package = "github.com/upalchowdhury/supplychain/x/supplychain/types";
 service Msg {
       rpc CreateTran(MsgCreateTran) returns (MsgCreateTranResponse);
   rpc CreateContract(MsgCreateContract) returns (MsgCreateContractResponse);
+  rpc CommitContract(MsgCommitContract) returns (MsgCommitContractResponse);
+  rpc ApproveContract(MsgApproveContract) returns (MsgApproveContractResponse);
+  rpc ShipOrder(MsgShipOrder) returns (MsgShipOrderResponse);
+  rpc OrderDelivered(MsgOrderDelivered) returns (MsgOrderDeliveredResponse);
+  rpc CancelOrder(MsgCancelOrder) returns (MsgCancelOrderResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -35,6 +40,59 @@ message MsgCreateContract {
 message MsgCreateContractResponse {
   string idValue = 1;
   string contractStatus = 2;
+}
+
+message MsgCommitContract {
+  string creator = 1;
+  string dealId = 2;
+  string contractId = 3;
+  string vendoreta = 4;
+  
+}
+
+message MsgCommitContractResponse {
+  string idValue = 1;
+  string contractStatus = 2;
+}
+
+message MsgApproveContract {
+  string creator = 1;
+  string dealId = 2;
+  string contractId = 3;
+}
+
+message MsgApproveContractResponse {
+  string idValue = 1;
+}
+
+message MsgShipOrder {
+  string creator = 1;
+  string dealId = 2;
+  string contractId = 3;
+}
+
+message MsgShipOrderResponse {
+  string idValue = 1;
+}
+
+message MsgOrderDelivered {
+  string creator = 1;
+  string dealId = 2;
+  string contractId = 3;
+}
+
+message MsgOrderDeliveredResponse {
+  string idValue = 1;
+}
+
+message MsgCancelOrder {
+  string creator = 1;
+  string dealId = 2;
+  string contractId = 3;
+}
+
+message MsgCancelOrderResponse {
+  string idValue = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

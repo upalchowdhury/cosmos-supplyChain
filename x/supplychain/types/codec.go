@@ -10,7 +10,12 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateTran{}, "supplychain/CreateTran", nil)
 	cdc.RegisterConcrete(&MsgCreateContract{}, "supplychain/CreateContract", nil)
-	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCommitContract{}, "supplychain/CommitContract", nil)
+cdc.RegisterConcrete(&MsgApproveContract{}, "supplychain/ApproveContract", nil)
+cdc.RegisterConcrete(&MsgShipOrder{}, "supplychain/ShipOrder", nil)
+cdc.RegisterConcrete(&MsgOrderDelivered{}, "supplychain/OrderDelivered", nil)
+cdc.RegisterConcrete(&MsgCancelOrder{}, "supplychain/CancelOrder", nil)
+// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
@@ -20,7 +25,22 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateContract{},
 	)
-	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgCommitContract{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgApproveContract{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgShipOrder{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgOrderDelivered{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgCancelOrder{},
+)
+// this line is used by starport scaffolding # 3
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }

@@ -388,8 +388,10 @@ func New(
 		scopedMonitoringKeeper,
 	)
 	monitoringModule := monitoringp.NewAppModule(appCodec, app.MonitoringKeeper)
-
+	// Add the bank keeper interface in  keeper construction during initialisation
 	app.SupplychainKeeper = *supplychainmodulekeeper.NewKeeper(
+		app.AccountKeeper,
+		app.BankKeeper,
 		appCodec,
 		keys[supplychainmoduletypes.StoreKey],
 		keys[supplychainmoduletypes.MemStoreKey],
