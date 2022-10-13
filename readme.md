@@ -50,3 +50,20 @@ curl https://get.ignite.com/upalchowdhury/supplychain@latest! | sudo bash
 - [Ignite CLI docs](https://docs.ignite.com)
 - [Cosmos SDK docs](https://docs.cosmos.network)
 - [Developer Chat](https://discord.gg/ignite)
+
+
+## Creating custom indexing and events using composite key
+message.action = ‘create_transaction’
+
+You can index multiple events using tags fields in config.toml
+
+1. In the config.toml file under indexer=kv
+tags = “message.action=‘create_transaction’”
+
+2. Subscribe to the composite key via web socket 
+
+ws-client ws://localhost:26657/websocket
+> { "jsonrpc": "2.0", "method": "subscribe", "params": ["message.action='create_transaction'"], "id": 1 }
+
+it will be subscribed to /subscribe tendermint RPC endpoint 
+
